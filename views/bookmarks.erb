@@ -18,8 +18,8 @@
     <input type='hidden' name='_method' value='DELETE'/>
     <input type="submit" value="Delete" id="<%=bookmark.title%>_delete"/>
   </form> 
-  <form action="/update" method='get'>
-    <input type='hidden' name='id' value='<%= bookmark.id %>'/>
+  <form action="/update/<%= bookmark.id %>" method='post'>
+    <input type='hidden' name='_method' value='PATCH'/>
     <input type='submit' value='Update' id="<%=bookmark.title%>_update">
   </form> 
   </li>
