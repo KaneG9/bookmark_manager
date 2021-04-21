@@ -20,4 +20,12 @@ describe Bookmark do
       expect(Bookmark.all.first.url).to eq('www.amazon.co.uk')
     end
   end
+
+  describe '#delete' do
+    it 'deletes a bookmark when called' do
+      Bookmark.create('www.amazon.co.uk', 'Amazon')
+      Bookmark.delete(Bookmark.all.first.id)
+      expect(Bookmark.all).to be_empty
+    end
+  end
 end

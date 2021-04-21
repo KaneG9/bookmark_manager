@@ -23,6 +23,13 @@ class Bookmark
     conn.exec("INSERT INTO bookmarks (url, title) VALUES('#{link}', '#{name}')")
   end
 
+  def self.delete(id)
+    conn = PG.connect(dbname: choose_database)
+    conn.exec("DELETE FROM bookmarks WHERE id = '#{id}'")
+  end
+
+
+  private
   def self.choose_database
     ENV['RACK_ENV'] == 'test' ? 'bookmark_manager_test' : 'bookmark_manager'
   end

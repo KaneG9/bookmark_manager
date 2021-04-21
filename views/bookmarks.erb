@@ -14,8 +14,14 @@
   <a href="<%= bookmark.url%>">
   <%= bookmark.title%>
   </a>
+  <form action="/bookmarks/<%= bookmark.id %>" method='post'>
+    <input type='hidden' name='_method' value='DELETE'/>
+    <input type="submit" value="Delete" id="<%=bookmark.title%>"/>
+  </form> 
   </li>
 <% end %>
 </div>
 </body>
 </html>
+
+<%# try and get to work with post request %>
