@@ -31,5 +31,14 @@ class BookmarkManager < Sinatra::Base
     redirect('/bookmarks')
   end
 
+  get '/update' do
+    erb(:update)
+  end
+
+  post '/update/cofirm' do
+  end
+
+  
+
   run if app_file == $PROGRAM_NAME
 end

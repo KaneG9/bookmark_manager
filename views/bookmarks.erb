@@ -16,7 +16,10 @@
   </a>
   <form action="/bookmarks/<%= bookmark.id %>" method='post'>
     <input type='hidden' name='_method' value='DELETE'/>
-    <input type="submit" value="Delete" id="<%=bookmark.title%>"/>
+    <input type="submit" value="Delete" id="<%=bookmark.title%>_delete"/>
+  </form> 
+  <form action="/update" method='get'>
+    <input type='submit' name='<%= bookmark.id %>' value='update' id="<%=bookmark.title%>_update">
   </form> 
   </li>
 <% end %>

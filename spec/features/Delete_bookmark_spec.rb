@@ -8,7 +8,7 @@ feature 'Testing delete functionality' do
     fill_in('add_name', with: 'Google')
     click_button('Add')
     click_button('View Bookmarks')
-    click_button('Amazon') #should delete amazon bookmark
+    click_button('Amazon_delete') #should delete amazon bookmark
     expect(page).not_to have_link('Amazon', href: 'http://www.amazon.co.uk')
   end
 end
