@@ -32,13 +32,14 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/update' do
+    @bookmark = Bookmark.find(params['id'])
     erb(:update)
   end
 
-  post '/update/cofirm' do
+  post '/update/confirm' do
+    Bookmark.update(params['id'], params['update_url'], params['update_title'])
+    redirect('/bookmarks')
   end
-
-  
 
   run if app_file == $PROGRAM_NAME
 end

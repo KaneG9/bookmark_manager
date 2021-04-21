@@ -28,6 +28,21 @@ class Bookmark
     conn.exec("DELETE FROM bookmarks WHERE id = '#{id}'")
   end
 
+  def self.update(id, url = "", title = "")
+    conn = PG.connect(dbname: choose_database)
+    conn.exec("UPDATE bookmarks 
+              SET url = '#{url}' WHERE id = '#{id}'") unless url == ""
+    conn.exec("UPDATE bookmarks 
+              SET title = '#{title}' WHERE id = '#{id}'") unless title == ""
+  end
+
+  def self.find(id)
+    conn = PG.connect(dbname: choose_database)
+    rs = conn.exec("SELECT * FROM bookmarks WHERE id = '#{id.to_i}'").map do |bookmark| 
+      Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id'])
+    end
+    rs.first
+  end
 
   private
   def self.choose_database

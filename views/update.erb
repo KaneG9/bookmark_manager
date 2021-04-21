@@ -8,7 +8,11 @@
 </head>
 <body>
     <div class="app-container">
+    <h1>Update Bookmark</h1>
+    <p>Current title: <%= @bookmark.title %></p>
+    <p>Current URL: <%= @bookmark.url %></p>
     <form action="/update/confirm" method="post">
+        <input type='hidden' name='id' value='<%= @bookmark.id %>'/>
         <input type="text" name="update_title" id="update_title" placeholder='title'>
         <input type="text" name="update_url" id="update_url" placeholder='url'>
         <input type="submit" value='Update'>
