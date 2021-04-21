@@ -39,8 +39,8 @@ Process
 * Created a Bookmark list on this page using `Bookmark.all` method which pulls all entries from the database and creates `Bookmark` objects for each one containing the title, url and id.
 * Used these objects to create our bookmark list with the title acting as links to the saved url.
 * On the home page added a form to add bookmarks to the manager via  `Bookmark.create`.
-* On the Bookmark list page added a delete button for each bookmark.
-* On the Bookmark list page added an update button for each bookmark which send the user to an update page in which they can choose if they would like to update title or url or both. This page also displays the current details of the bookmark.
+* On the Bookmark list page added a delete button for each bookmark via `Bookmark.delete`.
+* On the Bookmark list page added an update button for each bookmark which send the user to an update page in which they can choose if they would like to update title or url or both. This page also displays the current details of the bookmark. This was done via via `Bookmark.update` and `Bookmark.find`.
 
 Improvements
 -----------
