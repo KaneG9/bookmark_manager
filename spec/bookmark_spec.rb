@@ -6,11 +6,10 @@ require_relative './features/web_helper'
 describe Bookmark do
   describe '#all' do
     it 'should return all the element of an array' do
-      add_test_bookmarks
-      bookmark = Bookmark.all.first
-      expect(bookmark.title).to eq('Makers')
-      expect(bookmark.url).to eq('http://www.makersacademy.com')
-    end
+      10.times { Bookmark.create('https://www.amazon.co.uk', 'Amazon') }
+      bookmark = Bookmark.all
+      expect(bookmark.length).to eq(10)
+      end
   end
 
   describe '#create' do

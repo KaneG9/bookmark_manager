@@ -10,3 +10,4 @@ gem 'rubocop'
 gem 'simplecov'
 gem 'sinatra', group: :test
 gem 'sinatra-contrib'
+gem 'webrick'
