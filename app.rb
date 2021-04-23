@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require_relative './lib/bookmark'
 require 'pg'
+require_relative './database_connection_setup'
 
 class BookmarkManager < Sinatra::Base
   configure :development do
