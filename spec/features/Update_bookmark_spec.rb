@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './web_helper'
+
 feature 'Update' do
   scenario 'will update the bookmark' do
     visit_and_fill_in_with('https://www.amazon.co.uk', 'Amazon')
