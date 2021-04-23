@@ -12,40 +12,28 @@ class Bookmark
   end
 
   def self.all
-    conn = PG.connect(dbname: choose_database)
-    conn.exec('SELECT * FROM bookmarks').map do |bookmark|
-      Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id'])
-    end
+    rs = DatabaseConnection.query('SELECT * FROM bookmarks')
+    rs.map { |bookmark| Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id']) }
   end
 
   def self.create(link, name)
-    conn = PG.connect(dbname: choose_database)
-    conn.exec("INSERT INTO bookmarks (url, title) VALUES('#{link}', '#{name}')")
+    DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{link}', '#{name}')")
   end
 
   def self.delete(id)
-    conn = PG.connect(dbname: choose_database)
-    conn.exec("DELETE FROM bookmarks WHERE id = '#{id}'")
+    DatabaseConnection.query("DELETE FROM bookmarks WHERE id = '#{id}'")
   end
 
   def self.update(id, url = "", title = "")
-    conn = PG.connect(dbname: choose_database)
-    conn.exec("UPDATE bookmarks 
+    DatabaseConnection.query("UPDATE bookmarks 
               SET url = '#{url}' WHERE id = '#{id}'") unless url == ""
-    conn.exec("UPDATE bookmarks 
+    DatabaseConnection.query("UPDATE bookmarks 
               SET title = '#{title}' WHERE id = '#{id}'") unless title == ""
   end
 
   def self.find(id)
-    conn = PG.connect(dbname: choose_database)
-    rs = conn.exec("SELECT * FROM bookmarks WHERE id = '#{id.to_i}'").map do |bookmark| 
-      Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id'])
-    end
-    rs.first
-  end
-
-  private
-  def self.choose_database
-    ENV['RACK_ENV'] == 'test' ? 'bookmark_manager_test' : 'bookmark_manager'
+    rs = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = '#{id.to_i}'")
+    bookmark = rs.map { |bookmark| Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id']) }
+    bookmark.first
   end
 end
