@@ -17,6 +17,8 @@ class Bookmark
   end
 
   def self.create(link, name)
+    return false unless valid_url(link)
+
     DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{link}', '#{name}')")
   end
 
@@ -24,16 +26,20 @@ class Bookmark
     DatabaseConnection.query("DELETE FROM bookmarks WHERE id = '#{id}'")
   end
 
-  def self.update(id, url = "", title = "")
-    DatabaseConnection.query("UPDATE bookmarks 
-              SET url = '#{url}' WHERE id = '#{id}'") unless url == ""
-    DatabaseConnection.query("UPDATE bookmarks 
-              SET title = '#{title}' WHERE id = '#{id}'") unless title == ""
+  def self.update(id, url = '', title = '')
+    DatabaseConnection.query("UPDATE bookmarks SET url = '#{url}' WHERE id = '#{id}'") unless url == ''
+    DatabaseConnection.query("UPDATE bookmarks SET title = '#{title}' WHERE id = '#{id}'") unless title == ''
   end
 
   def self.find(id)
     rs = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = '#{id.to_i}'")
-    bookmark = rs.map { |bookmark| Bookmark.new(bookmark['title'], bookmark['url'], bookmark['id']) }
+    bookmark = rs.map { |bm| Bookmark.new(bm['title'], bm['url'], bm['id']) }
     bookmark.first
+  end
+
+  private_class_method
+
+  def self.valid_url(url)
+    url.match(URI::DEFAULT_PARSER.make_regexp)
   end
 end

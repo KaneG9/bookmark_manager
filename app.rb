@@ -17,10 +17,6 @@ class BookmarkManager < Sinatra::Base
   register Sinatra::Flash
 
   get '/' do
-    if session[:invalid_url]
-      flash.now[:alert] = 'Error: Invalid URL entered'
-      session[:invalid_url] = false
-    end
     erb(:index)
   end
 
@@ -29,14 +25,9 @@ class BookmarkManager < Sinatra::Base
     erb(:bookmarks)
   end
 
-  post '/add' do 
-    if  params[:add_url].match(URI::regexp())
-      Bookmark.create(params[:add_url], params[:add_title])
-      redirect('/')
-    else
-      session[:invalid_url] = true
-      redirect('/')
-    end
+  post '/add' do
+    flash[:alert] = 'Error: Invalid URL entered' unless Bookmark.create(params[:add_url], params[:add_title])
+    redirect('/')
   end
 
   delete '/bookmarks/:id' do

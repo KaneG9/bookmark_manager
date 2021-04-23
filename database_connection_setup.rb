@@ -1,7 +1,9 @@
-require './lib/DatabaseConnection.rb'
+# frozen_string_literal: true
 
-if ENV['RACK_ENV'] == 'test' 
+require './lib/database_connection.rb'
+
+if ENV['RACK_ENV'] == 'test'
   DatabaseConnection.setup('bookmark_manager_test')
-else 
-  DatabaseConnection.setup('bookmark_manager') 
+else
+  DatabaseConnection.setup('bookmark_manager')
 end

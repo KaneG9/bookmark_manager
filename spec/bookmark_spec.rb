@@ -9,7 +9,7 @@ describe Bookmark do
       10.times { Bookmark.create('https://www.amazon.co.uk', 'Amazon') }
       bookmark = Bookmark.all
       expect(bookmark.length).to eq(10)
-      end
+    end
   end
 
   describe '#create' do
@@ -17,6 +17,11 @@ describe Bookmark do
       Bookmark.create('https://www.amazon.co.uk', 'Amazon')
       expect(Bookmark.all.first.title).to eq('Amazon')
       expect(Bookmark.all.first.url).to eq('https://www.amazon.co.uk')
+    end
+
+    it 'invalid url does not add to db' do
+      Bookmark.create('hello', 'Amazon')
+      expect(Bookmark.all).to be_empty
     end
   end
 

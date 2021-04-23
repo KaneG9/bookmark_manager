@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'Testing delete functionality' do
   scenario 'Can delete a link once it has been added' do
     visit('/')
@@ -8,7 +10,7 @@ feature 'Testing delete functionality' do
     fill_in('add_title', with: 'Google')
     click_button('Add')
     click_button('View Bookmarks')
-    click_button('Amazon_delete') #should delete amazon bookmark
+    click_button('Amazon_delete') # should delete amazon bookmark
     expect(page).not_to have_link('Amazon', href: 'http://www.amazon.co.uk')
   end
 end

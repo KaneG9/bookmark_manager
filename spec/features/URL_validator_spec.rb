@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'testing for valid URLs' do
   scenario 'invalid URL entered into add' do
     visit '/'
@@ -9,7 +11,6 @@ feature 'testing for valid URLs' do
   end
 
   # scenario 'invalid URL entered into update' do
-    
-  # end
 
+  # end
 end
