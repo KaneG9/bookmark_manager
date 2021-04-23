@@ -16,9 +16,9 @@ describe DatabaseConnection do
       DatabaseConnection.setup('bookmark_manager_test')
       DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('www.amazon.co.uk', 'Amazon')")
       rs = DatabaseConnection.query('SELECT * FROM bookmarks')
-      bookmark = rs.map { |bm| Bookmark.new(bm['title'], bm['url'], bm['id']) }
-      expect(bookmark.first.url).to eq 'www.amazon.co.uk'
-      expect(bookmark.first.title).to eq 'Amazon'
+      bookmark = rs.map { |row| [row['title'], row['url'], row['id']] }
+      expect(bookmark[0][1]).to eq 'www.amazon.co.uk'
+      expect(bookmark[0][0]).to eq 'Amazon'
     end
   end
 end
