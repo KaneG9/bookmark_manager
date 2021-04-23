@@ -11,3 +11,4 @@ gem 'simplecov'
 gem 'sinatra', group: :test
 gem 'sinatra-contrib'
 gem 'webrick'
+gem 'sinatra-flash'

@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    <% flash.keys.each do |type| %>
+        <div data-alert class="flash <%= type %> alert-box radius">
+            <%= flash[type] %>
+            <a href="/" class="close">&times;</a>
+        </div>
+    <% end %>
     <div class="app-container">
     <h1>Bookmark Manager</h1>
     <form action="/bookmarks">
@@ -14,8 +20,8 @@
     </form>
     <br>
     <form action="/add" method="post">
-        <input type="text" name="add_bookmark" id="add_bookmark" placeholder='Add New Bookmark'>
-        <input type="text" name="add_name" id="add_name" placeholder='Add Bookmark Name'>
+        <input type="text" name="add_url" id="add_url" placeholder='Add New URL'>
+        <input type="text" name="add_title" id="add_title" placeholder='Add Bookmark Title'>
         <input type="submit" value='Add'>
     </form>
     </div>

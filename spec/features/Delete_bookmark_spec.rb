@@ -1,11 +1,11 @@
 feature 'Testing delete functionality' do
   scenario 'Can delete a link once it has been added' do
     visit('/')
-    fill_in('add_bookmark', with: 'http://www.amazon.co.uk')
-    fill_in('add_name', with: 'Amazon')
+    fill_in('add_url', with: 'http://www.amazon.co.uk')
+    fill_in('add_title', with: 'Amazon')
     click_button('Add')
-    fill_in('add_bookmark', with: 'http://www.google.com')
-    fill_in('add_name', with: 'Google')
+    fill_in('add_url', with: 'http://www.google.com')
+    fill_in('add_title', with: 'Google')
     click_button('Add')
     click_button('View Bookmarks')
     click_button('Amazon_delete') #should delete amazon bookmark

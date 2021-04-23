@@ -5,6 +5,8 @@ require 'sinatra/reloader'
 require_relative './lib/bookmark'
 require 'pg'
 require_relative './database_connection_setup'
+require 'sinatra/flash'
+require 'uri'
 
 class BookmarkManager < Sinatra::Base
   configure :development do
@@ -12,8 +14,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   enable :sessions, :method_override
+  register Sinatra::Flash
 
   get '/' do
+    if session[:invalid_url]
+      flash.now[:alert] = 'Error: Invalid URL entered'
+      session[:invalid_url] = false
+    end
     erb(:index)
   end
 
@@ -22,9 +29,14 @@ class BookmarkManager < Sinatra::Base
     erb(:bookmarks)
   end
 
-  post '/add' do
-    Bookmark.create(params[:add_bookmark], params[:add_name])
-    redirect('/')
+  post '/add' do 
+    if  params[:add_url].match(URI::regexp())
+      Bookmark.create(params[:add_url], params[:add_title])
+      redirect('/')
+    else
+      session[:invalid_url] = true
+      redirect('/')
+    end
   end
 
   delete '/bookmarks/:id' do
